@@ -1,0 +1,20 @@
+<div class="theory-container">
+    <ng-container *ngFor="let block of content">
+      <h1 *ngIf="block.type === 'title'">{{ block.content }}</h1>
+      <h2 *ngIf="block.type === 'subtitle'">{{ block.content }}</h2>
+      <p *ngIf="block.type === 'text'">{{ block.content }}</p>
+      <img *ngIf="block.type === 'image'" [src]="block.src" [alt]="block.alt" class="theory-image" />
+      <pre *ngIf="block.type === 'code'"><code>{{ block.content }}</code></pre>
+  
+      <!-- Interactivo: Quiz -->
+      <div *ngIf="block.type === 'interactive' && block.component === 'quiz'" class="quiz-block">
+        <p><strong>{{ block.data.question }}</strong></p>
+        <div *ngFor="let option of block.data.options">
+          <button (click)="handleAnswer(option, block.data.correct)">
+            {{ option }}
+          </button>
+        </div>
+        <p *ngIf="selectedAnswer">{{ quizFeedback }}</p>
+      </div>
+    </ng-container>
+  </div>

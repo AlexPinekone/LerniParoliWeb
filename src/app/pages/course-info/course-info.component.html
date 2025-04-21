@@ -1,0 +1,27 @@
+<div class="course-info-container" *ngIf="course">
+    <h1>{{ course.title }}</h1>
+    <p class="description">{{ course.description }}</p>
+  
+    <div class="images">
+      <img *ngFor="let url of course.imageUrls" [src]="url" [alt]="course.title" />
+    </div>
+  
+    <div class="info-box">
+      <h3>Origen</h3>
+      <p>{{ course.origin }}</p>
+  
+      <h3>Regiones donde se habla</h3>
+      <ul>
+        <li *ngFor="let region of course.regions">{{ region }}</li>
+      </ul>
+    </div>
+  
+    <div class="stats-box">
+      <h3>Estadísticas</h3>
+      <p><strong>Hablantes:</strong> {{ course.stats.speakers }}</p>
+      <p><strong>Dificultad:</strong> {{ course.stats.difficulty }}</p>
+      <p><strong>Popularidad:</strong> {{ course.stats.popularity }}</p>
+    </div>
+  
+    <button class="start-button" (click)="startCourse()">Iniciar curso</button>
+  </div>

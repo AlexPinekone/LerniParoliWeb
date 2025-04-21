@@ -1,0 +1,21 @@
+<h2>{{ data.title }}</h2>
+<p><strong>Progreso:</strong> {{ data.progress }}%</p>
+<p>{{ data.description }}</p>
+
+<button mat-stroked-button color="primary" (click)="data.goToTheory()">Ir a teoría</button>
+
+<div style="margin-top: 1rem">
+  <p><strong>Prácticas:</strong></p>
+  <button
+    mat-raised-button
+    *ngFor="let p of data.practices"
+    (click)="data.goToPractice(p.id)"
+    style="margin-right: 0.5rem; margin-top: 0.3rem;"
+  >
+    {{ p.title }}
+  </button>
+</div>
+
+<div style="text-align: right; margin-top: 2rem;">
+  <button mat-button (click)="close()">Cerrar</button>
+</div>

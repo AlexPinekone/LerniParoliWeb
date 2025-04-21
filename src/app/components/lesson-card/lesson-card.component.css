@@ -1,0 +1,37 @@
+.lesson-card {
+  display: flex;
+  align-items: center;
+  background-color: #f3f4f6;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.lesson-card:hover {
+  transform: scale(1.01);
+}
+
+.lesson-card img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  margin-right: 1rem;
+}
+
+.lesson-card .info {
+  flex: 1;
+}
+
+.lesson-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.lesson-card p {
+  margin: 0.5rem 0 0 0;
+  color: #555;
+}

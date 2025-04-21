@@ -1,0 +1,26 @@
+.admin-theory-editor {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.section-editor {
+  margin-bottom: 20px;
+}
+
+.content-field {
+  width: 100%;
+}
+
+.preview {
+  background: #f1f1f1;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 30px;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 10px 0;
+}

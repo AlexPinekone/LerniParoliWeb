@@ -1,0 +1,35 @@
+<div class="practice-container">
+    <div class="header">
+      <h2>Práctica de Inglés</h2>
+      <button class="back-btn" (click)="backToLessons()">← Regresar</button>
+    </div>
+  
+    <div class="progress-bar">
+      <div class="progress" [style.width.%]="(currentIndex / questions.length) * 100"></div>
+    </div>
+  
+    <ng-container *ngIf="!showResult; else resultTemplate">
+      <div class="slide">
+        <h3>{{ questions[currentIndex].question }}</h3>
+        <div class="options">
+          <button
+            *ngFor="let option of questions[currentIndex].options"
+            (click)="selectOption(option)"
+            [ngClass]="{ selected: selectedOption === option }"
+          >
+            {{ option }}
+          </button>
+        </div>
+  
+        <button class="next-btn" [disabled]="!selectedOption" (click)="next()">Siguiente</button>
+      </div>
+    </ng-container>
+  
+    <ng-template #resultTemplate>
+      <div class="result-screen">
+        <h2>¡Has completado la práctica!</h2>
+        <p>Tu puntaje: {{ score }} / {{ questions.length }}</p>
+        <button (click)="backToLessons()">Volver a lecciones</button>
+      </div>
+    </ng-template>
+  </div>

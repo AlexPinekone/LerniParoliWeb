@@ -1,0 +1,28 @@
+<div class="simple-course-editor">
+    <h2>{{ courseForm.value.title ? 'Editar curso' : 'Nuevo curso' }}</h2>
+  
+    <form [formGroup]="courseForm" (ngSubmit)="save()">
+      <mat-form-field class="full-width">
+        <mat-label>Título del curso</mat-label>
+        <input matInput formControlName="title" />
+      </mat-form-field>
+  
+      <mat-form-field class="full-width">
+        <mat-label>Descripción corta</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+  
+      <mat-form-field class="full-width">
+        <mat-label>Imagen (URL)</mat-label>
+        <input matInput formControlName="image" />
+      </mat-form-field>
+  
+      <div *ngIf="courseForm.value.image" class="preview">
+        <img [src]="courseForm.value.image" alt="Vista previa" />
+      </div>
+  
+      <div class="save-btn">
+        <button mat-raised-button color="primary" type="submit">Guardar curso</button>
+      </div>
+    </form>
+  </div>

@@ -1,0 +1,52 @@
+<div class="admin-practice-editor">
+    <h2>Editor de práctica</h2>
+  
+    <form [formGroup]="practiceForm" (ngSubmit)="save()">
+      <mat-form-field appearance="outline" class="title-field">
+        <mat-label>Título de la práctica</mat-label>
+        <input matInput formControlName="title" required />
+      </mat-form-field>
+  
+      <div formArrayName="questions" *ngFor="let question of questions.controls; let i = index" class="question-section">
+        <div [formGroupName]="i">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Pregunta #{{ i + 1 }}</mat-label>
+            <input matInput formControlName="prompt" required />
+          </mat-form-field>
+  
+          <div formArrayName="options" class="options">
+            <div *ngFor="let option of getOptions(i).controls; let j = index" [formGroupName]="j" class="option">
+              <mat-form-field appearance="outline" class="option-input">
+                <mat-label>Opción {{ j + 1 }}</mat-label>
+                <input matInput formControlName="text" />
+              </mat-form-field>
+              <mat-checkbox formControlName="correct">Correcta</mat-checkbox>
+              <button mat-icon-button color="warn" type="button" (click)="removeOption(i, j)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <button mat-stroked-button color="primary" type="button" (click)="addOption(i)">Agregar opción</button>
+          </div>
+        </div>
+  
+        <button mat-button color="warn" type="button" (click)="removeQuestion(i)">Eliminar pregunta</button>
+        <mat-divider></mat-divider>
+      </div>
+  
+      <button mat-raised-button color="primary" type="button" (click)="addQuestion()">Agregar pregunta</button>
+      <button mat-raised-button color="accent" type="submit">Guardar práctica</button>
+    </form>
+  
+    <h3>Vista previa</h3>
+    <div class="preview" *ngIf="practiceForm.valid">
+      <h4>{{ practiceForm.value.title }}</h4>
+      <div *ngFor="let q of practiceForm.value.questions; let i = index">
+        <p><strong>Pregunta {{ i + 1 }}:</strong> {{ q.prompt }}</p>
+        <ul>
+          <li *ngFor="let opt of q.options">
+            {{ opt.text }} <span *ngIf="opt.correct" style="color: green">✔</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,45 @@
+<div class="admin-lesson-editor">
+    <h2>Editor de lección</h2>
+  
+    <form [formGroup]="lessonForm" (ngSubmit)="save()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Título</mat-label>
+        <input matInput formControlName="title" />
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput rows="3" formControlName="description"></textarea>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>URL de imagen</mat-label>
+        <input matInput formControlName="image" />
+      </mat-form-field>
+  
+      <div class="preview-img" *ngIf="lessonForm.value.image">
+        <img [src]="lessonForm.value.image" alt="Preview" />
+      </div>
+  
+      <h3>Teoría</h3>
+      <button mat-raised-button color="accent" type="button" (click)="openTheoryEditor()">
+        {{ lessonForm.value.theoryId ? 'Editar teoría existente' : 'Crear teoría' }}
+      </button>
+  
+      <h3>Prácticas</h3>
+      <div *ngIf="lessonForm.value.practiceIds?.length > 0">
+        <div *ngFor="let practiceId of lessonForm.value.practiceIds">
+          <button mat-stroked-button color="primary" type="button" (click)="openPracticeEditor(practiceId)">
+            Editar práctica: {{ practiceId }}
+          </button>
+        </div>
+      </div>
+      <button mat-raised-button color="primary" type="button" (click)="addPractice()">
+        Agregar nueva práctica
+      </button>
+  
+      <div class="save-btn">
+        <button mat-raised-button color="primary" type="submit">Guardar lección</button>
+      </div>
+    </form>
+  </div>

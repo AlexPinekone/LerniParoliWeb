@@ -1,0 +1,38 @@
+.admin-practice-editor {
+  max-width: 900px;
+  margin: auto;
+  padding: 30px;
+}
+
+.question-section {
+  margin-bottom: 30px;
+  background: #f7f7f7;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.option-input {
+  flex: 1;
+}
+
+.options {
+  margin-bottom: 15px;
+}
+
+.preview {
+  margin-top: 40px;
+  padding: 20px;
+  background: #ececec;
+  border-radius: 10px;
+}

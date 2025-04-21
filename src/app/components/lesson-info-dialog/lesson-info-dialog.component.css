@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  padding: 1rem;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+button {
+  border-radius: 999px;
+}

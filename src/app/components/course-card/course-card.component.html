@@ -1,0 +1,8 @@
+<div class="card">
+    <img [src]="imageUrl" [alt]="title" />
+    <h3>{{ title }}</h3>
+    <p>{{ description }}</p>
+    <a [routerLink]="['/courses-info', id]">
+      <button>Ver más</button>
+    </a>
+  </div>
