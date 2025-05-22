@@ -17,8 +17,7 @@ export class LessonCardComponent {
     description: string;
     image: string;
     theoryId: string;
-    practices: { id: string; title: string }[];
-    progress: number;
+    practiceId: string;
     courseId: string;
   };
 
@@ -30,8 +29,8 @@ export class LessonCardComponent {
         ...this.lesson,
         goToTheory: () =>
           this.router.navigate([`/course/${this.lesson.courseId}/lessons/T/${this.lesson.theoryId}`]),
-        goToPractice: (id: string) =>
-          this.router.navigate([`/course/${this.lesson.courseId}/lessons/P/${id}`])
+        goToPractice: () =>
+          this.router.navigate([`/course/${this.lesson.courseId}/lessons/P/${this.lesson.practiceId}`])
       }
     });
   }

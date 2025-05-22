@@ -8,11 +8,10 @@
   <p><strong>Prácticas:</strong></p>
   <button
     mat-raised-button
-    *ngFor="let p of data.practices"
-    (click)="data.goToPractice(p.id)"
+    (click)="data.goToPractice()"
     style="margin-right: 0.5rem; margin-top: 0.3rem;"
   >
-    {{ p.title }}
+    Ir a práctica
   </button>
 </div>
 

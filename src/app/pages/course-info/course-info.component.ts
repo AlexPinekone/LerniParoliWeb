@@ -19,33 +19,19 @@ export class CourseInfoComponent implements OnInit {
       id: '1',
       title: 'Inglés Básico',
       description: 'El inglés es uno de los idiomas más hablados y es esencial para la comunicación internacional...',
-      origin: 'Inglaterra',
-      regions: ['Estados Unidos', 'Reino Unido', 'Canadá', 'Australia', 'India'],
       imageUrls: [
         'https://source.unsplash.com/600x300/?english,london',
         'https://source.unsplash.com/600x300/?english,classroom'
       ],
-      stats: {
-        speakers: '1500 millones',
-        difficulty: 'Media',
-        popularity: 'Alta'
-      }
     },
     {
       id: '2',
       title: 'Francés Intermedio',
       description: 'El francés es una lengua romance hablada en muchas partes del mundo...',
-      origin: 'Francia',
-      regions: ['Francia', 'Canadá', 'Suiza', 'Bélgica', 'África Occidental'],
       imageUrls: [
         'https://source.unsplash.com/600x300/?paris,french',
-        'https://source.unsplash.com/600x300/?france,language'
+        'https://source.unsplash.com/600x300/?fra nce,language'
       ],
-      stats: {
-        speakers: '300 millones',
-        difficulty: 'Alta',
-        popularity: 'Media'
-      }
     },
     // Puedes agregar más cursos aquí
   ];

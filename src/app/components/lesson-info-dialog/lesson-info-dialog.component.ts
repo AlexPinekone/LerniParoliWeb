@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-lesson-info-dialog',
-  imports: [NgFor],
+  imports: [],
    templateUrl: './lesson-info-dialog.component.html',
   styleUrl: './lesson-info-dialog.component.css'
 })

@@ -53,11 +53,6 @@ export const routes: Routes = [
         title: "Course Information"
       },
       {
-        path: "course/:idCourse",
-        component: CourseInfoComponent,
-        title: "My Course"
-      },
-      {
         //Dentro del curso
         path: "course/:idCourse/lessons",
         component: LessonsComponent,
