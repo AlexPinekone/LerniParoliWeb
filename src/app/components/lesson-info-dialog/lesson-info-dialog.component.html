@@ -1,11 +1,11 @@
 <h2>{{ data.title }}</h2>
-<p><strong>Progreso:</strong> {{ data.progress }}%</p>
 <p>{{ data.description }}</p>
 
+<p><strong>Teoría:</strong></p>
 <button mat-stroked-button color="primary" (click)="data.goToTheory()">Ir a teoría</button>
 
 <div style="margin-top: 1rem">
-  <p><strong>Prácticas:</strong></p>
+  <p><strong>Práctica:</strong></p>
   <button
     mat-raised-button
     (click)="data.goToPractice()"
