@@ -8,6 +8,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule} from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { PracticeService } from '../../services/practice.service';
 
 @Component({
   selector: 'app-admin-practice',
@@ -18,7 +21,13 @@ import { MatIconModule } from '@angular/material/icon';
 export class AdminPracticeComponent implements OnInit {
   practiceForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private router: Router,
+    private practiceService: PracticeService
+) {}
 
   ngOnInit(): void {
     this.practiceForm = this.fb.group({
@@ -61,8 +70,39 @@ export class AdminPracticeComponent implements OnInit {
   }
 
   save(): void {
-    const data = this.practiceForm.value;
-    console.log('Práctica guardada:', data);
-    // Aquí puedes enviar a tu API con HttpClient
+  const courseId = this.route.snapshot.paramMap.get('courseId');
+  const lessonId = this.route.snapshot.paramMap.get('lessonId');
+
+  if (!courseId || !lessonId) {
+    console.error('Faltan IDs en la URL');
+    return;
   }
+
+  const raw = this.practiceForm.value;
+
+  const questions = raw.questions.map((q: any) => {
+    const correct = q.options.find((o: any) => o.correct);
+    return {
+      question: q.prompt,
+      options: q.options.map((o: any) => o.text),
+      correctAnswer: correct?.text || ''
+    };
+  });
+
+  const payload = {
+    idCourse: courseId,
+    idLesson: lessonId,
+    questions
+  };
+
+  this.http.post('http://localhost:3000/api/practices', payload).subscribe({
+    next: (res) => {
+      console.log('Práctica guardada:', res);
+      this.router.navigate(['/course', courseId, 'lesson', lessonId]); // Ajusta si es necesario
+    },
+    error: (err) => {
+      console.error('Error al guardar la práctica:', err);
+    }
+  });
+}
 }

@@ -5,6 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
+import { CourseService } from '../../services/course.service';
 
 @Component({
   selector: 'app-admin-course',
@@ -16,7 +17,7 @@ import { NgIf } from '@angular/common';
 export class AdminCourseComponent implements OnInit {
   courseForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private courseService: CourseService) {}
 
   ngOnInit(): void {
     this.courseForm = this.fb.group({
@@ -27,7 +28,21 @@ export class AdminCourseComponent implements OnInit {
   }
 
   save(): void {
-    console.log('Curso guardado:', this.courseForm.value);
-    // Aquí puedes mandar los datos a tu backend o servicio
+    console.log('Guardando...', this.courseForm.value);
+    
+    if (this.courseForm.invalid) return;
+
+    const course = this.courseForm.value;
+    course.imageBig = course.image;
+
+    this.courseService.createCourse(course).subscribe({
+      next: (res) => {
+        console.log('Curso creado:', res);
+        this.courseForm.reset(); // Opcional: limpiar el formulario
+      },
+      error: (err) => {
+        console.error('Error al guardar el curso:', err);
+      }
+    });
   }
 }

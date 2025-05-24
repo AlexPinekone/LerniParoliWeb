@@ -1,9 +1,17 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
+//Admin dashboard. AdminCourses
+import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
+//Editar cursos AdminCourseEditor
 import { AdminCourseComponent } from './pages/admin-course/admin-course.component';
+//Editar lecciones AdminLesson
 import { AdminLessonComponent } from './pages/admin-lesson/admin-lesson.component';
+//Editar práctica AdminPracticeEditor
 import { AdminPracticeComponent } from './pages/admin-practice/admin-practice.component';
+//Editar teoría AdminTheoryEditor
 import { AdminTheoryComponent } from './pages/admin-theory/admin-theory.component';
+//Ver todas las lecciones AdminLessons
+import { AdminLessonsComponent } from './pages/admin-lessons/admin-lessons.component';
 import { CourseInfoComponent } from './pages/course-info/course-info.component';
 import { CoursesComponent } from './pages/courses/courses.component';
 import { LessonsComponent } from './pages/lessons/lessons.component';
@@ -13,6 +21,8 @@ import { PracticeComponent } from './pages/practice/practice.component';
 import { TheoryComponent } from './pages/theory/theory.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 
+
+
 export const routes: Routes = [
     {
         path: "home",
@@ -20,14 +30,32 @@ export const routes: Routes = [
         title: "Home"
       },
       {
-        //Todos los cursos para editar
+        //Todos los cursos
+        path: "admin-panel",
+        component: AdminPanelComponent,
+        title: "Admin panel"
+      },
+      {
+        //Editar las lecciones
+        path: "admin-lessons/:idCourse",
+        component: AdminLessonsComponent,
+        title: "Admin lessons"
+      },
+      {
+        //Nuevo curso
         path: "admin-courses",
         component: AdminCourseComponent,
         title: "Courses Editor"
       },
       {
-        //Edita las lecciones de un curso
-        path: "admin-panel/:idCourse",
+        //Agrega las lecciones de un curso
+        path: "admin-courses/lesson/:idCourse",
+        component: AdminLessonComponent,
+        title: "Lessons Editor"
+      },
+      {
+        //Agrega las lecciones de un curso
+        path: "admin-courses/lesson/:idCourse/:idLesson",
         component: AdminLessonComponent,
         title: "Lessons Editor"
       },
@@ -83,7 +111,7 @@ export const routes: Routes = [
         redirectTo: "home",
         pathMatch: "full"
       },
-      {
+      /*{
         path: "not-found",
         component: NotfoundComponent,
         title: "Not found"
@@ -92,6 +120,6 @@ export const routes: Routes = [
         path: "**",
         redirectTo: "not-found",
         pathMatch: "full"
-      }
+      }*/
 
 ];

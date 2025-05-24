@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PracticeService } from '../../services/practice.service';
 import { PracticeQuestion } from '../../interfaces/practice-question';
 import { NgClass, NgFor, NgIf } from '@angular/common';
+
 
 @Component({
   selector: 'app-practice',
@@ -16,9 +18,13 @@ export class PracticeComponent implements OnInit {
   showResult = false;
   score = 0;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private practiceService: PracticeService
+  ) {}
 
-  ngOnInit(): void {
+  /*ngOnInit(): void {
     // Puedes cargar esto de una API o servicio
     this.questions = [
       {
@@ -42,6 +48,18 @@ export class PracticeComponent implements OnInit {
         correctAnswer: 'She has finished her homework.'
       }
     ];
+  }*/
+
+  ngOnInit(): void {
+    const practiceId = this.route.snapshot.paramMap.get('practiceId');
+    if (practiceId) {
+      this.practiceService.getPractice(practiceId).subscribe({
+        next: (practice) => {
+          this.questions = practice.questions;
+        },
+        error: (err) => console.error('Error al cargar la práctica:', err)
+      });
+    }
   }
 
   selectOption(option: string): void {
@@ -62,6 +80,7 @@ export class PracticeComponent implements OnInit {
   }
 
   backToLessons(): void {
-    this.router.navigate(['/course/1/lessons']);
+    // Puedes ajustar esta navegación según la estructura real de tu app
+    this.router.navigate(['/courses']);
   }
 }

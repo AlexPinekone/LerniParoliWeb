@@ -12,7 +12,7 @@ import { LessonInfoDialogComponent } from '../lesson-info-dialog/lesson-info-dia
 })
 export class LessonCardComponent {
   @Input() lesson!: {
-    id: string;
+    _id: string;
     title: string;
     description: string;
     image: string;

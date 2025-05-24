@@ -5,7 +5,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
-
+import { NgFor, NgIf } from '@angular/common';
+import { TheoryService } from '../../services/theory.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-admin-theory',
@@ -16,7 +18,7 @@ import { MatDividerModule } from '@angular/material/divider';
 export class AdminTheoryComponent implements OnInit {
   theoryForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private theoryService: TheoryService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.theoryForm = this.fb.group({
@@ -45,9 +47,21 @@ export class AdminTheoryComponent implements OnInit {
   }
 
   save(): void {
+    const idCourse = this.route.snapshot.paramMap.get('courseId');
+    const idLesson = this.route.snapshot.paramMap.get('lessonId');
     const data = this.theoryForm.value;
-    console.log('Contenido guardado:', data);
-    // Aquí podrías mandarlo a tu API con HttpClient
+
+    if (!idCourse || !idLesson) {
+    console.error('Faltan IDs en la URL');
+    return;
+  }
+
+    this.theoryService.saveTheory(idCourse, idLesson, data.title, data.sections)
+    .subscribe({
+      next: () => console.log('Teoría guardada correctamente'),
+      error: (err) => console.error('Error al guardar teoría:', err)
+    });
   }
 }
-import { NgFor, NgIf } from '@angular/common';
+
+

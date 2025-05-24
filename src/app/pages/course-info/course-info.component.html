@@ -3,7 +3,7 @@
     <p class="description">{{ course.description }}</p>
   
     <div class="images">
-      <img *ngFor="let url of course.imageUrls" [src]="url" [alt]="course.title" />
+      <img [src]="course.imageUrl" [alt]="course.title" />
     </div>
   
   

@@ -1,0 +1,28 @@
+
+  <h2>Gestión de Cursos</h2>
+
+  <button mat-raised-button color="primary" routerLink="/admin-courses">
+    <mat-icon>add</mat-icon>
+    Agregar Nuevo Curso
+  </button>
+
+  <mat-list>
+    <mat-list-item *ngFor="let course of courses">
+      <h3 matListItemTitle>{{ course.title }}</h3>
+      <p matListItemLine>{{ course.description }}</p>
+      <div matListItemMeta>
+        <button mat-icon-button color="warn" (click)="deleteCourse(course._id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-button color="primary" [routerLink]="['/admin-lessons/', course._id]">
+          Ver Lecciones
+        </button>
+      </div>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+
+  <div *ngIf="courses.length === 0">
+    <p>No hay cursos disponibles. ¡Agrega uno!</p>
+  </div>
+

@@ -2,6 +2,7 @@ import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ export class RegisterComponent {
   registerForm: FormGroup;
   formSubmitted = false;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -22,17 +23,29 @@ export class RegisterComponent {
     });
   }
 
+  passwordsMatch(): boolean {
+    return this.registerForm.value.password === this.registerForm.value.confirmPassword;
+  }
+
   onSubmit(): void {
     this.formSubmitted = true;
 
     if (this.registerForm.valid && this.passwordsMatch()) {
-      const user = this.registerForm.value;
-      console.log('Usuario registrado:', user);
-      this.router.navigate(['/login']);
-    }
-  }
+      const { name, email, password } = this.registerForm.value;
 
-  passwordsMatch(): boolean {
-    return this.registerForm.value.password === this.registerForm.value.confirmPassword;
+      this.authService.register({
+        username: name,
+        password: password,
+        mail: email
+      }).subscribe({
+        next: () => {
+          console.log('Registro exitoso');
+          this.router.navigate(['/login']);
+        },
+        error: (err) => {
+          console.error('Error en el registro:', err);
+        }
+      });
+    }
   }
 }

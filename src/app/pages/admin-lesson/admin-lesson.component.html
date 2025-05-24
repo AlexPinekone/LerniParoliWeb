@@ -20,26 +20,35 @@
       <div class="preview-img" *ngIf="lessonForm.value.image">
         <img [src]="lessonForm.value.image" alt="Preview" />
       </div>
-  
-      <h3>Teoría</h3>
-      <button mat-raised-button color="accent" type="button" (click)="openTheoryEditor()">
-        {{ lessonForm.value.theoryId ? 'Editar teoría existente' : 'Crear teoría' }}
-      </button>
-  
-      <h3>Prácticas</h3>
-      <div *ngIf="lessonForm.value.practiceIds?.length > 0">
-        <div *ngFor="let practiceId of lessonForm.value.practiceIds">
-          <button mat-stroked-button color="primary" type="button" (click)="openPracticeEditor(practiceId)">
-            Editar práctica: {{ practiceId }}
-          </button>
-        </div>
-      </div>
-      <button mat-raised-button color="primary" type="button" (click)="addPractice()">
-        Agregar nueva práctica
-      </button>
-  
+
       <div class="save-btn">
         <button mat-raised-button color="primary" type="submit">Guardar lección</button>
       </div>
+      
+      <h3>Teoría</h3>
+      <div *ngIf="lessonForm.value.theoryId; else noTheory">
+        <button mat-stroked-button color="primary" (click)="openTheoryEditor()">Editar teoría</button>
+        <button mat-stroked-button color="warn" (click)="deleteTheory()">Eliminar teoría</button>
+      </div>
+      <ng-template #noTheory>
+        <button mat-raised-button color="accent" (click)="openTheoryEditor()">Crear teoría</button>
+      </ng-template>
+
+      <h3>Práctica</h3>
+      <div *ngIf="lessonForm.value.practiceId; else noPractice">
+        <button mat-stroked-button color="primary" (click)="openPracticeEditor()">
+          Editar práctica
+        </button>
+        <button mat-stroked-button color="warn" (click)="deletePractice()">
+          Eliminar práctica
+        </button>
+      </div>
+      <ng-template #noPractice>
+        <button mat-raised-button color="primary" (click)="openPracticeEditor()">
+          Crear práctica
+        </button>
+      </ng-template>
+      
+      
     </form>
   </div>

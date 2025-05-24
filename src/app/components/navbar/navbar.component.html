@@ -1,24 +1,28 @@
 <nav class="navbar">
-    <div class="navbar-brand">
-      <a routerLink="/">Lerni Paroli</a>
-    </div>
-  
-    <div class="navbar-sections">
-      <ul class="navbar-links">
-        <li><a class="nav-button" routerLink="/home" routerLinkActive="active">Inicio</a></li>
-        <li><a class="nav-button" routerLink="/courses" routerLinkActive="active">Cursos</a></li>
-      </ul>
-  
-      <div class="divider"></div>
-  
-      <ul class="navbar-links">
-        <li *ngIf="isLoggedIn; else loginButtons">
-          <a class="nav-button" routerLink="/profile" routerLinkActive="active">Yo</a>
-        </li>
-        <ng-template #loginButtons>
-          <li><a class="nav-button" routerLink="/login" routerLinkActive="active">Iniciar sesión</a></li>
-          <li><a class="nav-button" routerLink="/register" routerLinkActive="active">Registrarse</a></li>
-        </ng-template>
-      </ul>
-    </div>
-  </nav>
+  <div class="navbar-brand">
+    <a routerLink="/">Lerni Paroli</a>
+  </div>
+
+  <div class="navbar-sections">
+    <ul class="navbar-links">
+      <li><a class="nav-button" routerLink="/home" routerLinkActive="active">Inicio</a></li>
+      <li><a class="nav-button" routerLink="/courses" routerLinkActive="active">Cursos</a></li>
+      <li *ngIf="authService.isAdmin()">
+        <a class="nav-button" routerLink="/admin-panel" routerLinkActive="active">Panel de admin</a>
+      </li>
+    </ul>
+
+    <div class="divider"></div>
+
+    <ul class="navbar-links">
+      <li *ngIf="authService.isLoggedIn(); else loginButtons">
+        <a class="nav-button" (click)="logout()">Cerrar sesión</a>
+      </li>
+
+      <ng-template #loginButtons>
+        <li><a class="nav-button" routerLink="/login" routerLinkActive="active">Iniciar sesión</a></li>
+        <li><a class="nav-button" routerLink="/register" routerLinkActive="active">Registrarse</a></li>
+      </ng-template>
+    </ul>
+  </div>
+</nav>
