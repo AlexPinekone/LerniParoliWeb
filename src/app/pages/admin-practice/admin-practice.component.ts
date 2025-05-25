@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { PracticeService } from '../../services/practice.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-admin-practice',
@@ -28,6 +29,7 @@ export class AdminPracticeComponent implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     private router: Router,
+    private snackBar: MatSnackBar,
     private practiceService: PracticeService
 ) {}
 
@@ -100,9 +102,10 @@ export class AdminPracticeComponent implements OnInit {
   this.http.post('http://localhost:8080/api/practices', payload).subscribe({
     next: (res) => {
       console.log('Práctica guardada:', res);
-      this.router.navigate(['/admin-course/lesson', this.courseId, this.lessonId]); // Ajusta si es necesario
+      this.router.navigate(['/admin-courses/lesson', this.courseId, this.lessonId]); // Ajusta si es necesario
     },
     error: (err) => {
+      this.snackBar.open('Formualrio no valido', 'Cerrar', { duration: 3000 });
       console.error('Error al guardar la práctica:', err);
     }
   });

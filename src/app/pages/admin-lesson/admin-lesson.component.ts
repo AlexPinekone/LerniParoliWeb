@@ -7,6 +7,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { LessonService } from '../../services/lesson.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TheoryService } from '../../services/theory.service';
+import { PracticeService } from '../../services/practice.service';
 import { Console } from 'console';
 
 @Component({
@@ -25,7 +27,9 @@ export class AdminLessonComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private lessonService: LessonService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private theoryService: TheoryService,
+    private practiceService: PracticeService,
   ) {}
 
   ngOnInit(): void {
@@ -77,7 +81,7 @@ export class AdminLessonComponent implements OnInit {
       this.lessonService.updateLesson(this.lessonId, lessonData).subscribe({
         next: () => {
           this.snackBar.open('Lección actualizada exitosamente', 'Cerrar', { duration: 3000 });
-          this.router.navigate(['/admin/courses', this.courseId, 'lessons']);
+          this.router.navigate(['/admin-lessons', this.courseId]);
         },
         error: (error) => {
           console.error('Error al actualizar lección:', error);
@@ -90,7 +94,7 @@ export class AdminLessonComponent implements OnInit {
         next: (res) => {
           this.snackBar.open('Lección creada exitosamente', 'Cerrar', { duration: 3000 });
           // Opcional: Podrías redirigir a editar la lección recién creada para agregar teoría/práctica
-          this.router.navigate(['/admin/courses', this.courseId, 'lessons', 'edit', res._id]); // res._id es el ID de la nueva lección
+          this.router.navigate(['/admin-lessons', this.courseId]); // res._id es el ID de la nueva lección
         },
         error: (error) => {
           console.error('Error al guardar lección:', error);
@@ -137,22 +141,36 @@ export class AdminLessonComponent implements OnInit {
 
   // Métodos para eliminar teoría/práctica (opcional, si el backend lo soporta)
   deleteTheory(): void {
-    if (this.lessonForm.value.theoryId && confirm('¿Estás seguro de que quieres desvincular y eliminar esta teoría?')) {
-      // Llama a tu servicio de teoría para eliminarla
-      // this.theoryService.deleteTheory(this.lessonForm.value.theoryId).subscribe(...)
-      this.lessonForm.get('theoryId')?.patchValue(''); // Limpia el ID en el formulario
-      this.snackBar.open('Teoría desvinculada (y eliminada si tu backend lo hace).', 'Cerrar', { duration: 3000 });
-      // Deberías guardar la lección para persistir el cambio de theoryId = ''
-      this.save();
-    }
+  const theoryId = this.lessonForm.value.theoryId;
+  if (theoryId && confirm('¿Estás seguro de que quieres eliminar esta teoría?')) {
+    this.theoryService.deleteTheory(theoryId).subscribe({
+      next: () => {
+        this.lessonForm.get('theoryId')?.patchValue('');
+        this.snackBar.open('Teoría eliminada exitosamente.', 'Cerrar', { duration: 3000 });
+        this.save();
+      },
+      error: (err) => {
+        console.error(err);
+        this.snackBar.open('Error al eliminar la teoría.', 'Cerrar', { duration: 3000 });
+      }
+    });
   }
+}
 
   deletePractice(): void {
-  if (this.lessonForm.value.practiceId && confirm('¿Estás seguro de que quieres eliminar esta práctica?')) {
-    // this.practiceService.deletePractice(this.lessonForm.value.practiceId).subscribe(...)
-    this.lessonForm.get('practiceId')?.patchValue('');
-    this.snackBar.open('Práctica desvinculada (y eliminada si tu backend lo hace).', 'Cerrar', { duration: 3000 });
-    this.save();
+  const practiceId = this.lessonForm.value.practiceId;
+  if (practiceId && confirm('¿Estás seguro de que quieres eliminar esta práctica?')) {
+    this.practiceService.deletePractice(practiceId).subscribe({
+      next: () => {
+        this.lessonForm.get('practiceId')?.patchValue('');
+        this.snackBar.open('Práctica eliminada exitosamente.', 'Cerrar', { duration: 3000 });
+        this.save();
+      },
+      error: (err) => {
+        console.error(err);
+        this.snackBar.open('Error al eliminar la práctica.', 'Cerrar', { duration: 3000 });
+      }
+    });
   }
 }
 }

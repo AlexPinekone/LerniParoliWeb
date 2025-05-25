@@ -20,7 +20,10 @@ import { RegisterComponent } from './pages/register/register.component';
 import { PracticeComponent } from './pages/practice/practice.component';
 import { TheoryComponent } from './pages/theory/theory.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
-
+import { PrivacyNoticeComponent } from './pages/privacy-notice/privacy-notice.component';
+import { TermsConditionsComponent } from './pages/terms-conditions/terms-conditions.component';
+import { AuthGuard } from './guards/auth.guard'; // Importa tu guard
+import { AdminGuard } from './guards/admin.guard'; // Si tienes un guard de admin
 
 
 export const routes: Routes = [
@@ -33,71 +36,83 @@ export const routes: Routes = [
         //Todos los cursos ok
         path: "admin-panel",
         component: AdminPanelComponent,
-        title: "Admin panel"
+        title: "Admin panel",
+        canActivate: [AuthGuard, AdminGuard]
       },
       {
         //Editar las lecciones ok
         path: "admin-lessons/:idCourse",
         component: AdminLessonsComponent,
-        title: "Admin lessons"
+        title: "Admin lessons",
+        canActivate: [AuthGuard, AdminGuard]
       },
       {
         //Nuevo curso ok
         path: "admin-courses",
         component: AdminCourseComponent,
-        title: "Courses Editor"
+        title: "Courses Editor",
+        canActivate: [AuthGuard, AdminGuard]
       },
       {
         //Agrega las lecciones de un curso ok
         path: "admin-courses/lesson/:idCourse",
         component: AdminLessonComponent,
-        title: "Lessons Editor"
+        title: "Lessons Editor",
+        canActivate: [AuthGuard, AdminGuard]
       },
       {
         //Agrega y edita las lecciones de un curso ok
         path: "admin-courses/lesson/:idCourse/:idLesson",
         component: AdminLessonComponent,
-        title: "Lessons Editor"
+        title: "Lessons Editor",
+        canActivate: [AuthGuard, AdminGuard]
       },
       {
         //Crea una practica especifica
         path: "admin-courses/:idCourse/:idLesson/P",
         component: AdminPracticeComponent,
-        title: "Practice Editor"
+        title: "Practice Editor",
+        canActivate: [AuthGuard, AdminGuard]
       },
       {
         //Crea una teoria especifica
         path: "admin-courses/:idCourse/:idLesson/T",
         component: AdminTheoryComponent,
-        title: "Theory Editor"
+        title: "Theory Editor",
+        canActivate: [AuthGuard, AdminGuard]
       },
       {
         //Edita una practica especifica
         path: "admin-courses/:idCourse/:idLesson/P/:idPractice/edit",
         component: AdminPracticeComponent,
-        title: "Practice Editor"
+        title: "Practice Editor",
+        canActivate: [AuthGuard, AdminGuard]
       },
       {
         //Edita una teoria especifica
         path: "admin-courses/:idCourse/:idLesson/T/:idTheory/edit",
         component: AdminTheoryComponent,
-        title: "Theory Editor"
+        title: "Theory Editor",
+        canActivate: [AuthGuard, AdminGuard]
       },
       {
         path: "courses",
         component: CoursesComponent,
-        title: "Courses"
+        title: "Courses",
+        canActivate: [AuthGuard]
       },
       {
         path: "courses-info/:idCourse",
         component: CourseInfoComponent,
-        title: "Course Information"
+        title: "Course Information",
+        canActivate: [AuthGuard]
       },
       {
         //Dentro del curso
         path: "course/:idCourse/lessons",
         component: LessonsComponent,
-        title: "Lessons"
+        title: "Lessons",
+        canActivate: [AuthGuard]
       },
       {
         path: "login",
@@ -112,11 +127,23 @@ export const routes: Routes = [
       {
         path: "course/:idCourse/lesson/:idLesson/P/:idPractice",
         component: PracticeComponent,
-        title: "Practice"
+        title: "Practice",
+        canActivate: [AuthGuard]
       },
       {
         path: "course/:idCourse/lesson/:idLesson/T/:idTheory",
         component: TheoryComponent,
+        title: "Theory",
+        canActivate: [AuthGuard]
+      },
+      {
+        path: "privacy-notice",
+        component: PrivacyNoticeComponent,
+        title: "Theory"
+      },
+      {
+        path: "terms-conditions",
+        component: TermsConditionsComponent,
         title: "Theory"
       },
       {

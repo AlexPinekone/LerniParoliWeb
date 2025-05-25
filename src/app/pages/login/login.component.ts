@@ -34,7 +34,7 @@ export class LoginComponent {
           // Almacenar token en localStorage
           localStorage.setItem('token', res.token);
           // Opcional: guardar también el rol o nombre del usuario
-          localStorage.setItem('user', JSON.stringify({ username: res.username, role: res.role }));
+          localStorage.setItem('user', JSON.stringify({ username: res.username, role: res.role, id: res.user_id }));
           this.router.navigate(['/home']);
         },
         error: (err) => {

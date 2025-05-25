@@ -6,7 +6,11 @@
   <div class="navbar-sections">
     <ul class="navbar-links">
       <li><a class="nav-button" routerLink="/home" routerLinkActive="active">Inicio</a></li>
-      <li><a class="nav-button" routerLink="/courses" routerLinkActive="active">Cursos</a></li>
+      <li *ngIf="authService.isLoggedIn()">
+        <a class="nav-button" routerLink="/courses" routerLinkActive="active"
+          >Cursos</a
+        >
+      </li>
       <li *ngIf="authService.isAdmin()">
         <a class="nav-button" routerLink="/admin-panel" routerLinkActive="active">Panel de admin</a>
       </li>

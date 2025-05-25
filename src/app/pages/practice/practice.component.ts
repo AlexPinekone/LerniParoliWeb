@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PracticeService } from '../../services/practice.service';
 import { PracticeLesson, PracticeQuestion } from '../../interfaces/practice-question';
 import { NgClass, NgFor, NgIf } from '@angular/common';
+import { LessonUserService } from '../../services/lesson-user.service';
 
 interface Practice {
   idCourse: string;
@@ -22,15 +23,22 @@ export class PracticeComponent implements OnInit {
   selectedOption: string | null = null;
   showResult = false;
   score = 0;
+  idLesson!: string;
+  idCourse!: string;
+  username = 'USER_ID';
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private practiceService: PracticeService
+    private practiceService: PracticeService,
+    private lessonUserService: LessonUserService
   ) {}
 
   ngOnInit(): void {
     const lessonId = this.route.snapshot.paramMap.get('idLesson');
+    this.idLesson = this.route.snapshot.paramMap.get('idLesson') || '';
+    this.username = JSON.parse(localStorage.getItem('user') || '{}')?.username || '';
+
     if (lessonId) {
       this.practiceService.getPractice(lessonId).subscribe({
         next: (practice: PracticeLesson) => {
@@ -55,6 +63,15 @@ export class PracticeComponent implements OnInit {
 
     if (this.currentIndex >= this.questions.length) {
       this.showResult = true;
+
+      this.idCourse
+      // Llamar al backend para registrar como "DONE"
+      this.lessonUserService
+        .createLessonUser(this.idLesson, this.username, this.idCourse, 'DONE')
+        .subscribe({
+          next: () => console.log('Lección marcada como completada'),
+          error: (err) => console.error('Error al registrar lección completada:', err)
+        });
     }
   }
 

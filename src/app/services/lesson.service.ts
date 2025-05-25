@@ -24,11 +24,11 @@ export class LessonService {
   }
 
   //Por hacer
-  deleteLesson(courseId: string): Observable<Lesson>{
-    return this.http.delete<Lesson>(`${this.baseUrl}/course/${courseId}`);
+  deleteLesson(lessonId: string): Observable<Lesson>{
+    return this.http.delete<Lesson>(`${this.baseUrl}/${lessonId}`);
   }
 
   updateLesson(lessonId: string, lesson: Lesson): Observable<Lesson> {
-    return this.http.post<Lesson>(this.baseUrl, lesson);
+    return this.http.put<Lesson>(`${this.baseUrl}/${lessonId}`, lesson);
   }
 }

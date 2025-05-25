@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LessonInfoDialogComponent } from '../lesson-info-dialog/lesson-info-dialog.component';
+import { Lesson } from '../../interfaces/lesson';
 
 
 @Component({
@@ -11,15 +12,7 @@ import { LessonInfoDialogComponent } from '../lesson-info-dialog/lesson-info-dia
   styleUrl: './lesson-card.component.css'
 })
 export class LessonCardComponent {
-  @Input() lesson!: {
-    _id: string;
-    title: string;
-    description: string;
-    image: string;
-    theoryId: string;
-    practiceId: string;
-    idCourse: string;
-  };
+  @Input() lesson!: Lesson;
 
   constructor(private dialog: MatDialog, private router: Router) {
   }

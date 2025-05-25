@@ -7,7 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgFor, NgIf } from '@angular/common';
 import { TheoryService } from '../../services/theory.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-admin-theory',
@@ -20,7 +21,7 @@ export class AdminTheoryComponent implements OnInit {
   courseId!: string;
   lessonId!: string;
 
-  constructor(private fb: FormBuilder, private theoryService: TheoryService, private route: ActivatedRoute) {}
+  constructor(private fb: FormBuilder,private router: Router, private theoryService: TheoryService, private route: ActivatedRoute, private snackBar: MatSnackBar,) {}
 
   ngOnInit(): void {
     this.theoryForm = this.fb.group({
@@ -60,8 +61,14 @@ export class AdminTheoryComponent implements OnInit {
 
     this.theoryService.saveTheory(idCourse, idLesson, data.title, data.sections)
     .subscribe({
-      next: () => console.log('Teoría guardada correctamente'),
-      error: (err) => console.error('Error al guardar teoría:', err)
+      next: () => {
+        console.log('Teoría guardada correctamente')
+        this.router.navigate(['/admin-courses/lesson', idCourse, idLesson]); 
+      },
+      error: (err) => {
+        this.snackBar.open('Formualrio no valido', 'Cerrar', { duration: 3000 });
+        console.error('Error al guardar teoría:', err);
+      }
     });
   }
 }

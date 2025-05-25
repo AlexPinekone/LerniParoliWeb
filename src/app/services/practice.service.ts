@@ -18,4 +18,8 @@ export class PracticeService {
   createPractice(practice: PracticeLesson): Observable<PracticeLesson> {
     return this.http.post<PracticeLesson>(this.baseUrl, practice);
   }
+
+  deletePractice(practiceId: string): Observable<any> {
+  return this.http.delete(`${this.baseUrl}/${practiceId}`);
+}
 }

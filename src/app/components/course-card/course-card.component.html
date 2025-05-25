@@ -1,5 +1,5 @@
 <div class="card">
-    <img [src]="imageUrl" [alt]="title" />
+    <img [src]="course?.image" [alt]="title" />
     <h3>{{ title }}</h3>
     <p>{{ description }}</p>
     <a [routerLink]="['/courses-info/', id]">

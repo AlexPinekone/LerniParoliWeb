@@ -10,6 +10,12 @@
   transition: transform 0.2s;
 }
 
+.lesson-card.completed {
+  background-color: #e0ffe0;
+  border: 2px solid green;
+  opacity: 0.8;
+}
+
 .lesson-card:hover {
   transform: scale(1.01);
 }

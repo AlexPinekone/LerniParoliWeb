@@ -6,4 +6,5 @@
     theoryId: string;
     practiceId: string;
     idCourse: string;
+    completed?: boolean;
   }

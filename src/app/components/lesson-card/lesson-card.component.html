@@ -1,4 +1,4 @@
-<div class="lesson-card" (click)="openDialog()">
+<div class="lesson-card" [class.completed]="lesson.completed" (click)="openDialog()">
     <img [src]="lesson.image" alt="lesson image" />
     <div class="info">
       <h3>{{ lesson.title }}</h3>
