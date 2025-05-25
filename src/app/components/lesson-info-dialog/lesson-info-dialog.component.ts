@@ -1,12 +1,14 @@
-import { NgFor } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, Inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-lesson-info-dialog',
-  imports: [],
-   templateUrl: './lesson-info-dialog.component.html',
-  styleUrl: './lesson-info-dialog.component.css'
+  imports: [CommonModule, MatButtonModule],
+  templateUrl: './lesson-info-dialog.component.html',
+  styleUrl: './lesson-info-dialog.component.css',
+  standalone: true
 })
 export class LessonInfoDialogComponent {
   constructor(

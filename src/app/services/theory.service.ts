@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TheoryBlock } from '../interfaces/theory-block';
+import { Theory } from '../interfaces/theory-block';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -13,12 +13,17 @@ export interface AdminTheoryBlock {
 export class TheoryService {
   constructor(private http: HttpClient) {}
 
+  /*
   getTheory(courseId: string, lessonId: string): Observable<TheoryBlock[]> {
-    return this.http.get<TheoryBlock[]>(`http://localhost:3000/api/theories/${courseId}/${lessonId}`)
+    return this.http.get<TheoryBlock[]>(`http://localhost:8080/api/theories/lesson/${lessonId}`)
       .pipe(
         // Solo nos interesa el array de bloques
         map((res: any) => res.blocks as TheoryBlock[])
       );
+  }*/
+
+  getTheory(courseId: string, lessonId: string): Observable<Theory> {
+    return this.http.get<Theory>(`http://localhost:8080/api/theories/lesson/${lessonId}`);
   }
 
   saveTheory(idCourse: string, idLesson: string, title: string, blocks: AdminTheoryBlock[]): Observable<any> {
@@ -33,7 +38,7 @@ export class TheoryService {
       }
     });
 
-    return this.http.post(`http://localhost:3000/api/theory`, {
+    return this.http.post(`http://localhost:8080/api/theories`, {
       idCourse,
       idLesson,
       title,

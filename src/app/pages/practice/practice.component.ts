@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PracticeService } from '../../services/practice.service';
-import { PracticeQuestion } from '../../interfaces/practice-question';
+import { PracticeLesson, PracticeQuestion } from '../../interfaces/practice-question';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 
+interface Practice {
+  idCourse: string;
+  idLesson: string;
+  questions: PracticeQuestion[];
+}
 
 @Component({
   selector: 'app-practice',
@@ -24,37 +29,11 @@ export class PracticeComponent implements OnInit {
     private practiceService: PracticeService
   ) {}
 
-  /*ngOnInit(): void {
-    // Puedes cargar esto de una API o servicio
-    this.questions = [
-      {
-        question: 'What is the past tense of "go"?',
-        options: ['goed', 'went', 'goes', 'going'],
-        correctAnswer: 'went'
-      },
-      {
-        question: 'Choose the correct form: "She ___ to school every day."',
-        options: ['go', 'goes', 'went', 'gone'],
-        correctAnswer: 'goes'
-      },
-      {
-        question: 'Which sentence uses the present perfect?',
-        options: [
-          'She has finished her homework.',
-          'She finishes her homework.',
-          'She finished her homework.',
-          'She is finishing her homework.'
-        ],
-        correctAnswer: 'She has finished her homework.'
-      }
-    ];
-  }*/
-
   ngOnInit(): void {
-    const practiceId = this.route.snapshot.paramMap.get('practiceId');
-    if (practiceId) {
-      this.practiceService.getPractice(practiceId).subscribe({
-        next: (practice) => {
+    const lessonId = this.route.snapshot.paramMap.get('idLesson');
+    if (lessonId) {
+      this.practiceService.getPractice(lessonId).subscribe({
+        next: (practice: PracticeLesson) => {
           this.questions = practice.questions;
         },
         error: (err) => console.error('Error al cargar la práctica:', err)

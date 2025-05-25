@@ -1,10 +1,14 @@
 <h2>{{ data.title }}</h2>
 <p>{{ data.description }}</p>
 
-<p><strong>Teoría:</strong></p>
-<button mat-stroked-button color="primary" (click)="data.goToTheory()">Ir a teoría</button>
+<!-- Teoría -->
+<div *ngIf="data.theoryId && data.theoryId.trim() !== ''">
+  <p><strong>Teoría:</strong></p>
+  <button mat-stroked-button color="primary" (click)="data.goToTheory()">Ir a teoría</button>
+</div>
 
-<div style="margin-top: 1rem">
+<!-- Práctica -->
+<div *ngIf="data.practiceId && data.practiceId.trim() !== ''" style="margin-top: 1rem">
   <p><strong>Práctica:</strong></p>
   <button
     mat-raised-button
@@ -15,6 +19,7 @@
   </button>
 </div>
 
+<!-- Cerrar -->
 <div style="text-align: right; margin-top: 2rem;">
   <button mat-button (click)="close()">Cerrar</button>
 </div>

@@ -7,12 +7,12 @@ import { PracticeLesson } from '../interfaces/practice-question';
   providedIn: 'root'
 })
 export class PracticeService {
-  private baseUrl = 'http://localhost:3000/api/practices';
+  private baseUrl = 'http://localhost:8080/api/practices';
 
   constructor(private http: HttpClient) {}
 
-  getPractice(id: string): Observable<PracticeLesson> {
-    return this.http.get<PracticeLesson>(`${this.baseUrl}/${id}`);
+  getPractice(idLesson: string): Observable<PracticeLesson> {
+    return this.http.get<PracticeLesson>(`${this.baseUrl}/${idLesson}`);
   }
 
   createPractice(practice: PracticeLesson): Observable<PracticeLesson> {

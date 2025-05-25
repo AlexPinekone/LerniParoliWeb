@@ -30,43 +30,56 @@ export const routes: Routes = [
         title: "Home"
       },
       {
-        //Todos los cursos
+        //Todos los cursos ok
         path: "admin-panel",
         component: AdminPanelComponent,
         title: "Admin panel"
       },
       {
-        //Editar las lecciones
+        //Editar las lecciones ok
         path: "admin-lessons/:idCourse",
         component: AdminLessonsComponent,
         title: "Admin lessons"
       },
       {
-        //Nuevo curso
+        //Nuevo curso ok
         path: "admin-courses",
         component: AdminCourseComponent,
         title: "Courses Editor"
       },
       {
-        //Agrega las lecciones de un curso
+        //Agrega las lecciones de un curso ok
         path: "admin-courses/lesson/:idCourse",
         component: AdminLessonComponent,
         title: "Lessons Editor"
       },
       {
-        //Agrega las lecciones de un curso
+        //Agrega y edita las lecciones de un curso ok
         path: "admin-courses/lesson/:idCourse/:idLesson",
         component: AdminLessonComponent,
         title: "Lessons Editor"
       },
       {
-        //Edita una practica especifica
-        path: "admin-panel/:idCourse/:idLesson/P/:idPractice",
+        //Crea una practica especifica
+        path: "admin-courses/:idCourse/:idLesson/P",
         component: AdminPracticeComponent,
         title: "Practice Editor"
       },
       {
-        path: "admin-panel/:idCourse/:idLesson/T/:idTheory",
+        //Crea una teoria especifica
+        path: "admin-courses/:idCourse/:idLesson/T",
+        component: AdminTheoryComponent,
+        title: "Theory Editor"
+      },
+      {
+        //Edita una practica especifica
+        path: "admin-courses/:idCourse/:idLesson/P/:idPractice/edit",
+        component: AdminPracticeComponent,
+        title: "Practice Editor"
+      },
+      {
+        //Edita una teoria especifica
+        path: "admin-courses/:idCourse/:idLesson/T/:idTheory/edit",
         component: AdminTheoryComponent,
         title: "Theory Editor"
       },
@@ -97,12 +110,12 @@ export const routes: Routes = [
         title: "Register"
       },
       {
-        path: "course/:idCourse/lessons/P/:idPractice",
+        path: "course/:idCourse/lesson/:idLesson/P/:idPractice",
         component: PracticeComponent,
         title: "Practice"
       },
       {
-        path: "course/:idCourse/lessons/T/:idTheory",
+        path: "course/:idCourse/lesson/:idLesson/T/:idTheory",
         component: TheoryComponent,
         title: "Theory"
       },

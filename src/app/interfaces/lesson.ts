@@ -5,5 +5,5 @@
     image: string;
     theoryId: string;
     practiceId: string;
-    courseId: string;
+    idCourse: string;
   }

@@ -20,6 +20,8 @@ import { PracticeService } from '../../services/practice.service';
 })
 export class AdminPracticeComponent implements OnInit {
   practiceForm!: FormGroup;
+  courseId!: string;
+  lessonId!: string;
 
   constructor(
     private fb: FormBuilder,
@@ -30,6 +32,8 @@ export class AdminPracticeComponent implements OnInit {
 ) {}
 
   ngOnInit(): void {
+    this.courseId = this.route.snapshot.paramMap.get('idCourse') || '';
+    this.lessonId = this.route.snapshot.paramMap.get('idLesson') || '';
     this.practiceForm = this.fb.group({
       title: ['', Validators.required],
       questions: this.fb.array([])
@@ -70,10 +74,8 @@ export class AdminPracticeComponent implements OnInit {
   }
 
   save(): void {
-  const courseId = this.route.snapshot.paramMap.get('courseId');
-  const lessonId = this.route.snapshot.paramMap.get('lessonId');
 
-  if (!courseId || !lessonId) {
+  if (!this.courseId || !this.lessonId) {
     console.error('Faltan IDs en la URL');
     return;
   }
@@ -90,15 +92,15 @@ export class AdminPracticeComponent implements OnInit {
   });
 
   const payload = {
-    idCourse: courseId,
-    idLesson: lessonId,
+    idCourse: this.courseId,
+    idLesson: this.lessonId,
     questions
   };
 
-  this.http.post('http://localhost:3000/api/practices', payload).subscribe({
+  this.http.post('http://localhost:8080/api/practices', payload).subscribe({
     next: (res) => {
       console.log('Práctica guardada:', res);
-      this.router.navigate(['/course', courseId, 'lesson', lessonId]); // Ajusta si es necesario
+      this.router.navigate(['/admin-course/lesson', this.courseId, this.lessonId]); // Ajusta si es necesario
     },
     error: (err) => {
       console.error('Error al guardar la práctica:', err);

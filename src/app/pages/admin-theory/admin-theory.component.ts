@@ -17,6 +17,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AdminTheoryComponent implements OnInit {
   theoryForm!: FormGroup;
+  courseId!: string;
+  lessonId!: string;
 
   constructor(private fb: FormBuilder, private theoryService: TheoryService, private route: ActivatedRoute) {}
 
@@ -47,8 +49,8 @@ export class AdminTheoryComponent implements OnInit {
   }
 
   save(): void {
-    const idCourse = this.route.snapshot.paramMap.get('courseId');
-    const idLesson = this.route.snapshot.paramMap.get('lessonId');
+    const idCourse = this.route.snapshot.paramMap.get('idCourse');
+    const idLesson = this.route.snapshot.paramMap.get('idLesson');
     const data = this.theoryForm.value;
 
     if (!idCourse || !idLesson) {

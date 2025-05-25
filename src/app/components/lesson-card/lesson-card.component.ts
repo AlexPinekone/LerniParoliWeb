@@ -18,19 +18,22 @@ export class LessonCardComponent {
     image: string;
     theoryId: string;
     practiceId: string;
-    courseId: string;
+    idCourse: string;
   };
 
-  constructor(private dialog: MatDialog, private router: Router) {}
+  constructor(private dialog: MatDialog, private router: Router) {
+  }
 
   openDialog() {
+    //this.lesson.theoryId = "1";
+    //this.lesson.practiceId = "1";
     this.dialog.open(LessonInfoDialogComponent, {
       data: {
         ...this.lesson,
         goToTheory: () =>
-          this.router.navigate([`/course/${this.lesson.courseId}/lessons/T/${this.lesson.theoryId}`]),
+          this.router.navigate([`/course/${this.lesson.idCourse}/lesson/${this.lesson._id}/T/${this.lesson.theoryId}`]),
         goToPractice: () =>
-          this.router.navigate([`/course/${this.lesson.courseId}/lessons/P/${this.lesson.practiceId}`])
+          this.router.navigate([`/course/${this.lesson.idCourse}/lesson/${this.lesson._id}/P/${this.lesson.practiceId}`])
       }
     });
   }

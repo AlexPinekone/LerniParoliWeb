@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TheoryBlock } from '../../interfaces/theory-block';
+import { Theory, TheoryBlock } from '../../interfaces/theory-block';
 import { NgFor, NgIf } from '@angular/common';
 import { TheoryService } from '../../services/theory.service';
 import { ActivatedRoute } from '@angular/router'
@@ -11,7 +11,8 @@ import { ActivatedRoute } from '@angular/router'
   styleUrl: './theory.component.css'
 })
 export class TheoryComponent implements OnInit {
-  content: TheoryBlock[] = [];
+  theory: Theory | null = null;             // contiene el objeto completo
+  content: TheoryBlock[] = [];   
 
   selectedAnswer: string | null = null;
   quizFeedback: string = '';
@@ -19,8 +20,8 @@ export class TheoryComponent implements OnInit {
   constructor(private theoryService: TheoryService, private route: ActivatedRoute) {}
   
    ngOnInit(): void {
-    const courseId = this.route.snapshot.paramMap.get('courseId');
-    const lessonId = this.route.snapshot.paramMap.get('lessonId');
+    const courseId = this.route.snapshot.paramMap.get('idCourse');
+    const lessonId = this.route.snapshot.paramMap.get('idLesson');
 
     if (!courseId || !lessonId) {
       console.error('Faltan IDs en la URL');
@@ -28,7 +29,10 @@ export class TheoryComponent implements OnInit {
     }
 
     this.theoryService.getTheory(courseId, lessonId).subscribe({
-      next: (blocks) => this.content = blocks,
+      next: (theory) => {
+        this.theory = theory;
+        this.content = theory.blocks;
+      },
       error: (err) => console.error('Error al obtener la teoría:', err)
     });
   }

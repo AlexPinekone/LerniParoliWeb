@@ -1,4 +1,5 @@
 <div class="theory-container">
+  <h1 *ngIf="theory?.title">{{ theory?.title }}</h1>
     <ng-container *ngFor="let block of content">
       <h1 *ngIf="block.type === 'title'">{{ block.content }}</h1>
       <h2 *ngIf="block.type === 'subtitle'">{{ block.content }}</h2>

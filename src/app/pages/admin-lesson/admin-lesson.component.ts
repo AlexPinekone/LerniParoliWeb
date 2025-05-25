@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { LessonService } from '../../services/lesson.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-admin-lesson',
@@ -35,8 +36,8 @@ export class AdminLessonComponent implements OnInit {
       title: ['', Validators.required],
       description: ['', Validators.required],
       image: ['', Validators.required],
-      theoryId: [''],
-      practiceId: ['']
+      theoryId: '',
+      practiceId: ''
     });
 
     if (this.lessonId) {
@@ -47,8 +48,9 @@ export class AdminLessonComponent implements OnInit {
           // Asegúrate de que theoryId y practiceIds se inicialicen correctamente
           // Si tu backend devuelve un objeto complejo para theory/practice,
           // quizás necesites mapear solo los IDs aquí.
-          this.lessonForm.get('theoryId')?.patchValue(lesson._id); // Asumiendo que viene como ID
-          this.lessonForm.get('practiceIds')?.patchValue(lesson._id ); // Asumiendo un array de IDs
+          //this.lessonForm.get('theoryId')?.patchValue(lesson._id); // Asumiendo que viene como ID
+          //this.lessonForm.get('practiceId')?.patchValue(lesson._id ); // Asumiendo un array de IDs
+          
         },
         error: (error) => {
           console.error('Error al cargar lección:', error);
@@ -101,12 +103,12 @@ export class AdminLessonComponent implements OnInit {
   openTheoryEditor(): void {
     // Si la lección ya tiene una teoría, vamos a la ruta de edición
     if (this.lessonForm.value.theoryId) {
-      this.router.navigate([`/admin/courses/${this.courseId}/lessons/${this.lessonId}/theory/edit`, this.lessonForm.value.theoryId]);
+      this.router.navigate([`/admin-courses/${this.courseId}/${this.lessonId}/T/${this.lessonForm.value.theoryId}/edit`]);
     } else {
       // Si no tiene, vamos a la ruta de creación
       // Asegúrate de que la lección ya esté creada para poder asociar la teoría
       if (this.lessonId) {
-        this.router.navigate([`/admin/courses/${this.courseId}/lessons/${this.lessonId}/theory/new`]);
+        this.router.navigate([`/admin-courses/${this.courseId}/${this.lessonId}/T`]);
       } else {
         this.snackBar.open('Primero guarda la lección para poder agregar una teoría.', 'Cerrar', { duration: 3000 });
       }
@@ -117,9 +119,9 @@ export class AdminLessonComponent implements OnInit {
   openPracticeEditor(): void {
     if (this.lessonId) {
       if (this.lessonForm.value.practiceId) {
-        this.router.navigate([`/admin/courses/${this.courseId}/lessons/${this.lessonId}/practice/edit`, this.lessonForm.value.practiceId]);
+        this.router.navigate([`/admin-courses/${this.courseId}/${this.lessonId}/P/${this.lessonForm.value.practiceId}/edit`]);
       } else {
-        this.router.navigate([`/admin/courses/${this.courseId}/lessons/${this.lessonId}/practice/new`]);
+        this.router.navigate([`/admin-courses/${this.courseId}/${this.lessonId}/P`]);
       }
     } else {
       this.snackBar.open('Primero guarda la lección para poder agregar una práctica.', 'Cerrar', { duration: 3000 });

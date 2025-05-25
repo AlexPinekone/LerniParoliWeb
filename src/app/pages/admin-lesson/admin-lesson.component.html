@@ -26,8 +26,8 @@
       </div>
       
       <h3>Teoría</h3>
-      <div *ngIf="lessonForm.value.theoryId; else noTheory">
-        <button mat-stroked-button color="primary" (click)="openTheoryEditor()">Editar teoría</button>
+      <div *ngIf='lessonForm.value.theoryId !== ""; else noTheory'>
+        <!--<button mat-stroked-button color="primary" (click)="openTheoryEditor()">Editar teoría</button>-->
         <button mat-stroked-button color="warn" (click)="deleteTheory()">Eliminar teoría</button>
       </div>
       <ng-template #noTheory>
@@ -35,10 +35,10 @@
       </ng-template>
 
       <h3>Práctica</h3>
-      <div *ngIf="lessonForm.value.practiceId; else noPractice">
-        <button mat-stroked-button color="primary" (click)="openPracticeEditor()">
+      <div *ngIf='lessonForm.value.practiceId !== ""; else noPractice'>
+        <!--<button mat-stroked-button color="primary" (click)="openPracticeEditor()">
           Editar práctica
-        </button>
+        </button>-->
         <button mat-stroked-button color="warn" (click)="deletePractice()">
           Eliminar práctica
         </button>
