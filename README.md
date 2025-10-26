@@ -39,11 +39,12 @@
 - **Backend:** Express.js  
 - **Database:** MongoDB   
 
----
-
 ## ⚙️ Installation
 
-### 1️⃣ Clone the repository
-```bash
-git clone https://github.com/yourusername/polylingua.git
-cd polylingua
+-Clone the repository
+
+-Use "npm i" to install all the dependencies in both, frontend and backend
+
+-Run the project!
+
+![Gameplay Screenshot 3](./images/screenshot1.png)
