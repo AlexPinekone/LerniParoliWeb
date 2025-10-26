@@ -16,7 +16,7 @@
 
 ---
 
-## 🧩 Key Features
+## Key Features
 
 ### For Administrators
 
@@ -33,13 +33,13 @@
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend:** Angular 16+  
 - **Backend:** Express.js  
 - **Database:** MongoDB   
 
-## ⚙️ Installation
+## Installation
 
 -Clone the repository
 
